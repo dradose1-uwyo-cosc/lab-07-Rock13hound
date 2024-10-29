@@ -1,8 +1,8 @@
-# Your Name Here
+# Elijah Gertsch
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section: 
+# Submission Date 10/29/2024
+# Lab 07
+# Lab Section: 11
 # Sources, people worked with, help given to: 
 # your
 # comments
@@ -17,11 +17,27 @@
     # If a user did not enter a number output a statement saying so
 # You will continue to prompt the user until a proper integer value is entered
 
-factorial = 1
+def factorial_upper():
+    while True:
+        user_input = input("Name a positive number")
+        if user_input.isdigit():
+            upper_bound = int(user_input)
+            if upper_bound >= 0:
+                break
+            else:
+                print("Name a positive number")
+        else:
+            print("Invalid number. Name a positive number")
 
-print(f"The result of the factorial based on the given bound is {factorial}")
+    factorial = 1
+    for i in range(1, upper_bound + 1):
+        factorial *= i
 
-print("*"*75)
+    print(f"The result of the factorial based on the given bound is {factorial}")
+
+print("*" * 75)
+factorial_upper()
+
 # Create a while loop that prompts a user for input of an integer values
 # Sum all inputs. When the user enters 'exit' (regardless of casing) end the loop
 # Upon ending the loop print the sum
@@ -37,11 +53,27 @@ print("*"*75)
 # All this together means you will have an intensive while loop that includes multiple if statements, likely with some nesting 
 # The sum should start at 0 
 
-num_sum = 0 
+def sum_inputs():
+    num_sum = 0
+    while True:
+        user_input = input("Enter an integer (or 'exit' to quit): ")
+        if user_input.lower() == 'exit':
+            break
+        if user_input.startswith('-'):
+            number_str = user_input[1:]
+            if number_str.isnumeric():
+                num_sum -= int(number_str)
+            else:
+                print("Invalid input, try again.")
+        elif user_input.isnumeric():
+            num_sum += int(user_input)
+        else:
+            print("Invalid input, try again.")
+    print(f"Your final sum is {num_sum}")
 
-print(f"Your final sum is {num_sum}")
+print("*" * 75)
+sum_inputs()
 
-print("*"*75)
 # Now you will be creating a two operand calculator
 # It will support the following operators: +,-,/,*,% 
 # So accepted input is of the form `operand operator operand` 
@@ -59,4 +91,35 @@ print("*"*75)
 # Print the result of the equation
 # Again, loop through prompting the user for input until `exit` in any casing is input 
 
-        
+def calculator():
+    while True:
+        user_input = input("Enter a calculation (or 'exit' to quit): ")
+        if user_input.lower() == 'exit':
+            break
+        operator = None
+        operands = []
+        for char in user_input:
+            if char in "+-*/%":
+                operator = char
+                operands = user_input.replace(" ", "").split(operator)
+                break
+        if operator and len(operands) == 2:
+                operand1 = int(operands[0])
+                operand2 = int(operands[1])
+                if operator == '+':
+                    result = operand1 + operand2
+                elif operator == '-':
+                    result = operand1 - operand2
+                elif operator == '*':
+                    result = operand1 * operand2
+                elif operator == '/':
+                    result = operand1 / operand2
+                elif operator == '%':
+                    result = operand1 % operand2
+
+                print(f"Result: {result}")
+        else:
+            print("Invalid input. please check equation format.")
+
+print("*" * 75)
+calculator()
